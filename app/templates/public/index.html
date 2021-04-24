@@ -1,0 +1,100 @@
+{% extends "public/templates/public_templates.html" %}
+
+{% block title %}Mise En Place{% endblock %}
+{% block style %}
+ul.collection {
+opacity: 0.9;
+max-height: 100vh;
+overflow-y: scroll;
+}
+i.icon-purple{
+color: #7e57c2;
+}
+{% endblock %}
+
+{% block main %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% if current_user.is_authenticated %}
+<div class="row">
+    <div class="col s12">
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h4>Recipes</h4>
+            </li>
+            {% for x in recipes %}
+            <li class="collection-item">
+                <div>{{x.name}}
+                    <a class="waves-effect waves-light btn-small modal-trigger right deep-purple lighten-1" href="#modal1" style="margin-left: 5px;">View Ingredients</a>
+                    <a class="waves-effect waves-light btn-small right deep-purple lighten-1" href="/addtofav/{{x.rid}}">Add To Favourites</a>
+                </div>
+                <div class="modal" id="modal1">
+                    <div class="modal-content">
+                        <h4>{{x.name}}</h4>
+                        <p>Ingredients: {{x.ingredientsList}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/addrecipebased/{{x.rid}}" class="waves-effect waves-light btn-small left deep-purple lighten-1">Add Ingredients to List</a>
+                        <a href="#" class="modal-close btn right deep-purple lighten-1">Close</a>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% else %}
+
+<div class="row">
+    <div class="col s4">
+        <div class="card deep-purple lighten-1">
+            <div class="card-content white-text">
+              <span class="card-title">Welcome to Our Recipe List</span>
+              <p>Sign Up to gain access to the Full, sorted Recipe list. Having an account also allows you to use our grocery list. You can add the ingredients from any recipe you want to your grocery List.
+                  Simply Login if you already have an account. </p>
+            </div>
+            <div class="card-action">
+              <a href="/signup">Sign Up</a>
+            </div>
+          </div>
+    </div>
+    <div class="col s8 ">
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h4>Recipes</h4>
+            </li>
+            {% for x in recipes %}
+            <li class="collection-item">
+                <div>{{x.name}}
+                    <a class="waves-effect waves-light btn-small right deep-purple lighten-1 modal-trigger" href="#modal{{x.rid}}">View Ingredients</a>
+                </div>
+                <div class="modal" id="modal{{x.rid}}">
+                    <div class="modal-content">
+                        <h4>{{x.name}}</h4>
+                        <p>{{x.ingredientsList}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="modal-close btn right deep-purple lighten-1">Close</a>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block js %}
+
+$(document).ready(function(){
+    // Init Modal
+    $('.modal').modal();
+});
+
+{% endblock %}
