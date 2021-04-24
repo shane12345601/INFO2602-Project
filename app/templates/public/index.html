@@ -30,10 +30,10 @@ color: #7e57c2;
             {% for x in recipes %}
             <li class="collection-item">
                 <div>{{x.name}}
-                    <a class="waves-effect waves-light btn-small modal-trigger right deep-purple lighten-1" href="#modal1" style="margin-left: 5px;">View Ingredients</a>
+                    <a class="waves-effect waves-light btn-small modal-trigger right deep-purple lighten-1" href="#modal{{x.rid}}" style="margin-left: 5px;">View Ingredients</a>
                     <a class="waves-effect waves-light btn-small right deep-purple lighten-1" href="/addtofav/{{x.rid}}">Add To Favourites</a>
                 </div>
-                <div class="modal" id="modal1">
+                <div class="modal" id="modal{{x.rid}}">
                     <div class="modal-content">
                         <h4>{{x.name}}</h4>
                         <p>Ingredients: {{x.ingredientsList}}</p>
