@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "c:\\Users\\Justin Mahabir\\Downloads\\INFO2602-Project-main (1)\\INFO2602-Project-main\\.venv\\Scripts\\python.exe",
+    "files.exclude": {
+        "**/__pycache__": true
+    }
+}
